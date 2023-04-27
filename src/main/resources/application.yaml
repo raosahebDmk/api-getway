@@ -1,5 +1,5 @@
 server:
-  port: 9095
+  port: 1000
   
 spring:
   application:
@@ -23,6 +23,16 @@ spring:
         uri: lb://HOTEL-SERVICE
         predicates:
         - Path=/hotels/**
+
+okta:
+  oauth2:
+    issuer: https://dev-03131466.okta.com/oauth2/default
+    audience: api://default
+    client-id: 0oa99yt607oaOaYYv5d7
+    client-secret: fxATTkPYVUGXK5wuh9M2dIu0FVukIfOT-BB4J9zP
+    scopes: openid, profile, email, offline_access
+    
+    
            
   
 #eureka:
@@ -32,5 +42,6 @@ spring:
 #    fetch-registry: true
 #    register-with-eureka: true
 #    service-url:
-#      defaultZone: http://localhost:8761/eureka   
+#      defaultZone: http://localhost:8761/eureka  
+ 
     
