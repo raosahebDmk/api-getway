@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,14 +18,17 @@ import com.ms.model.AuthResponse;
 
 import ch.qos.logback.core.model.Model;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth") 
 public class TestController {
 
 	@GetMapping("/login")
 	public ResponseEntity<AuthResponse> login(@RegisteredOAuth2AuthorizedClient("okta") OAuth2AuthorizedClient client,@AuthenticationPrincipal OidcUser user, Model model)
 	{
 		System.out.println("email : "+user.getEmail());
+		System.out.println("name : "+user.getFullName());
+		
 		AuthResponse response = new AuthResponse();
 		response.setUserId(user.getEmail());
 		response.setAccessToken(client.getAccessToken().getTokenValue());
